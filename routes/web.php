@@ -3,7 +3,6 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +16,12 @@ use Laravel\Socialite\Facades\Socialite;
 
 
 Route::view('/', 'login')->name('login');
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('github')->redirect();
-})->name('auth.redirect');
+Route::get('/auth/redirect',[AuthController::class,'redirect'])->name('auth.redirect');
 Route::get('/auth/callback',[AuthController::class,'login']);
+
 Route::group(['middleware' => 'checkLogin',], function () {
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+    Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });
 
 

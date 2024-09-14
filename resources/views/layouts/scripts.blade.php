@@ -10,6 +10,7 @@
         $(function () {
 
           $('#example2').DataTable({
+            pageLength: 15,
             "paging": true,
             "lengthChange": false,
             "searching": true,

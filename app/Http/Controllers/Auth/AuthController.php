@@ -10,6 +10,10 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
+    public function redirect(){
+        return Socialite::driver('github')->redirect();
+    }
+
     public function login()
     {
         $githubUser = Socialite::driver('github')->stateless()->user();
@@ -28,5 +32,10 @@ class AuthController extends Controller
         }else{
             return redirect()->route('login');
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('logout');
     }
 }
